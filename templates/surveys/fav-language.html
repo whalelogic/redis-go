@@ -1,0 +1,18 @@
+{{template "base.html" .}}
+
+{{define "title"}}Favorite Language Survey{{end}}
+
+{{define "content"}}
+    <h2>What is your favorite Programming Language?</h2>
+    <form method="POST" action="/submit">
+        <input type="text" name="language" placeholder="e.g. Go, Python, Rust" required>
+        <input type="submit" value="Submit Vote">
+    </form>
+
+    <div class="results">
+        <h3>Current Submissions:</h3>
+        <ul>
+            {{range .}} <li>{{.}}</li> {{end}}
+        </ul>
+    </div>
+{{end}}

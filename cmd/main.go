@@ -11,29 +11,20 @@ import (
 )
 
 
+// Keep these outside of 'main' to re-use
 var ctx = context.Background()
 var store *survey.Store
-
-// HTML Template for the survey
-const tpl = `
-<!DOCTYPE html>
-<html>
-<body>
-	<h2>Quick Survey: What is your favorite Programming Language?</h2>
-	<form method="POST" action="/submit">
-		<input type="text" name="language" placeholder="e.g. Go, Python, Rust" required>
-		<input type="submit" value="Vote">
-	</form>
-	<hr>
-	<h3>Current Results:</h3>
-	<ul>
-		{{range .}} <li>{{.}}</li> {{end}}
-	</ul>
-</body>
-</html>
-`
+var templates *template.Template
 
 func main() {
+	var err error
+	templates, err = template.ParseFiles("templates/base.html", "templates/surveys/fav-language.html")
+	if err != nil {
+		log.Fatalf("Couldn't parse templates: %v", err)
+	}
+
+
+
 	redisAddr := os.Getenv("REDIS_ADDR")
 	if redisAddr == "" {
 		redisAddr = "localhost:6379"
@@ -53,8 +44,10 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	// Fetch results from Redis 
 	results, _ := store.GetResults(ctx, "votes:languages")
 	
-	t := template.Must(template.New("web").Parse(tpl))
-	t.Execute(w, results)
+	err := templates.ExecuteTemplate(w, "fav-language.html", results)
+	if err != nil {
+		http.Error(w, "Error rendering template", http.StatusInternalServerError)
+	}
 }
 
 func submitHandler(w http.ResponseWriter, r *http.Request) {
