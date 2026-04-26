@@ -6,8 +6,10 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"github.com/whalelogic/redis-go-quick/pkg/survey" 
 )
+
 
 var ctx = context.Background()
 var store *survey.Store
@@ -32,8 +34,13 @@ const tpl = `
 `
 
 func main() {
+	redisAddr := os.Getenv("REDIS_ADDR")
+	if redisAddr == "" {
+		redisAddr = "localhost:6379"
+	}
+
 	// Initialize our reusable wrapper
-	store = survey.NewStore("localhost:6379")
+	store = survey.NewStore(redisAddr)
 
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/submit", submitHandler)
