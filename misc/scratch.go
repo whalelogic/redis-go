@@ -8,7 +8,6 @@ import (
 
 type Sequence []int
 
-// Methods required by sort.Interface.
 func (s Sequence) Len() int {
     return len(s)
 }
@@ -19,18 +18,16 @@ func (s Sequence) Swap(i, j int) {
     s[i], s[j] = s[j], s[i]
 }
 
-// Copy returns a copy of the Sequence.
 func (s Sequence) Copy() Sequence {
     copy := make(Sequence, 0, len(s))
     return append(copy, s...)
 }
 
-// Method for printing - sorts the elements before printing.
 func (s Sequence) String() string {
-    s = s.Copy() // Make a copy; don't overwrite argument.
+    s = s.Copy() 
     sort.Sort(s)
     str := "["
-    for i, elem := range s { // Loop is O(N²); will fix that in next example.
+    for i, elem := range s { 
         if i > 0 {
             str += " "
         }
@@ -41,6 +38,7 @@ func (s Sequence) String() string {
 
 
 func main() {
+
 
 
 }
