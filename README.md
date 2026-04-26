@@ -37,4 +37,4 @@ This application allows users to create surveys, submit responses, and view resu
   ```
   
 
-- These values are _`hard-coded`_ into the `main.go` file. In a production environment, it's recommended to use environment variables for better security and flexibility.
+- These values are _`hard-coded`_ into the `main.go` file. 
