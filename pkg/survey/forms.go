@@ -6,7 +6,6 @@ import (
 	"strings"
 )
 
-// ParseSurvey extracts data from an r.PostForm
 func ParseSurvey(r *http.Request, field string) string {
 	val := r.FormValue(field)
 	return strings.TrimSpace(val)

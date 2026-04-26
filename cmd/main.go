@@ -30,7 +30,6 @@ func main() {
 		redisAddr = "localhost:6379"
 	}
 
-	// Initialize our reusable wrapper
 	store = survey.NewStore(redisAddr)
 
 	http.HandleFunc("/", indexHandler)
@@ -41,7 +40,6 @@ func main() {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	// Fetch results from Redis 
 	results, _ := store.GetResults(ctx, "votes:languages")
 	
 	err := templates.ExecuteTemplate(w, "fav-language.html", results)
@@ -56,11 +54,9 @@ func submitHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Use our helper to parse the form
 	favLang := survey.ParseSurvey(r, "language")
 
 	if favLang != "" {
-		// Save to Redis using our wrapper
 		store.SaveResponse(ctx, "votes:languages", favLang)
 	}
 
