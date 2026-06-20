@@ -44,5 +44,8 @@ This application allows users to create surveys, submit responses, and view resu
        -d "language=Go"
 ```
 
+![Survey Application Demo](/static/preview.png)
+
+
 
 
