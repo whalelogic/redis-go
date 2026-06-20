@@ -10,13 +10,11 @@ import (
 )
 
 
-// Keep these outside of 'main' to re-use
 var ctx = context.Background()
 var store *survey.Store
 var templates *template.Template
 
 
-// helper functions to set the store and templates from main.go
 func SetStore(s *survey.Store) {
 	store = s
 }
@@ -26,7 +24,7 @@ func SetTemplates(t *template.Template) {
 }
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	results, _ := store.GetResults(ctx, "votes:languages")
+	results, _ := store.GetSurveyResults(ctx, "votes:languages")
 	
 	err := templates.ExecuteTemplate(w, "fav-language.html", results)
 	if err != nil {

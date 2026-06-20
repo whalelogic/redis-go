@@ -10,9 +10,11 @@
     </form>
 
     <div class="results">
-        <h3>Current Submissions:</h3>
+        <h2>Survey Results:</h2>
         <ul>
-            {{range .}} <li>{{.}}</li> {{end}}
+            {{range .}}
+            <li>{{.Value}}: {{.Count}} vote(s)</li>
+            {{end}}
         </ul>
     </div>
 {{end}}
