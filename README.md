@@ -8,17 +8,17 @@ This application allows users to create surveys, submit responses, and view resu
 - Submit responses to surveys
 - View survey results in real-time
   
-  ## Technologies Used
+## Technologies Used
   
 - Golang: The main programming language used for the backend.
 - Redis: Used for storing survey data and responses.
   
-  ## To Run the Application
+## To Run the Application
   
 
-1. Make sure you have Golang and Redis installed on your machine.
-2. Clone the repository and navigate to the project directory.
-3. Run the application using the command:
+-  Make sure you have Golang and Redis installed on your machine.
+-  Clone the repository and navigate to the project directory.
+-  Run the application using the command:
   
   ```bash
   docker-compose up --build
@@ -29,12 +29,20 @@ This application allows users to create surveys, submit responses, and view resu
   ```bash
   docker-compose up -d redis
   ```
-  
-  > A better approach is to define env variables in a `.env` file and use them in the `docker-compose.yml` file. For example, you can create a `.env` file with the following content:
-  
-  ```env
-  REDIS_ADDR=localhost:6379
-  ```
-  
 
-- These values are _`hard-coded`_ into the `main.go` file. 
+- The application will be available at `http://localhost:8080`.
+- You can use redis-cli to ping the Redis server.
+  
+  ```bash
+  redis-cli ping
+  ```
+
+- POST requests can be made to create surveys and submit responses.
+
+```bash
+     curl -X POST http://localhost:8080/submit \
+       -d "language=Go"
+```
+
+
+
