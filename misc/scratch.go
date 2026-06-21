@@ -1,13 +1,17 @@
 package main
 
 import (
-		"fmt"
-		"sort"
+	"fmt"
+	"reflect"
+	"slices"
+	"sort"
 )
 
 
 type Sequence []int
 type StringSequence []string
+
+type TypeHolder any
 
 func (s Sequence) Len() int {
     return len(s)
@@ -37,6 +41,18 @@ func (s Sequence) String() string {
     return str + "]"
 }
 
+func (m StringSequence) SortSlice() []string {
+	m = slices.Clone(m)
+	sort.Strings(m)
+	fmt.Println("Sorted StringSequence:", m)
+	return m
+}
+
+func (m StringSequence) CopySS() []string {
+	copy := make(StringSequence, 0, len(m))
+	return append(copy, m...)
+}
+
 func modify(val *int) {
     *val = *val * *val 
 }
@@ -56,26 +72,25 @@ func Finder(str []string, target string) (string, bool) {
 
 
 func main() {
+	var typeThing TypeHolder = 15
+	var typeThing2 TypeHolder = "A string of my own type. "
+	fmt.Println("typeThing: ", reflect.TypeOf(typeThing), ("\nvalue of typeThing: "), typeThing)
+	fmt.Println("\ntypeThing2: ", reflect.TypeOf(typeThing2), "\nvalue of typeThing2: ", typeThing2)
 
 	var seq Sequence = []int{3,4,13,63,1,9,44,2,5}
 	var seq2 Sequence = []int{9,43,13,63,11,89,34,28,50}
-	fmt.Println("Original:", seq)
 	fmt.Println("Sorted:  ", seq.String())
-	fmt.Println(seq.Len())
 	fmt.Println(seq.Less(4, 5))
 
 	fmt.Println("Copied Sequence 2:", seq2)
-	fmt.Println("Sorted Copied Sequence:", seq2.String())
-	fmt.Println(seq2.Len())
 
 
 	var stringSeq StringSequence = []string{"apple", "cherry", "orange", "lime", "date", "elderberry", "fig"}
-	fmt.Println("Length of stringSeq: ", len(stringSeq))
 	fmt.Println("Second element of stringSeq: ", stringSeq[1])
 
 	s4 := &seq2
 	fmt.Println("s4: ", s4)
-	var s5 int = 10
+	var s5 = 10
 	modify(&s5)
 	fmt.Println("s5: ", s5)
 
@@ -83,7 +98,12 @@ func main() {
 	fmt.Println("r: ", r)
 	fmt.Println("e: ", e)
 
+	m := stringSeq.SortSlice() 
+	fmt.Println("m: ", m)
 
+	mc := stringSeq.CopySS()
+	mc = StringSequence(mc)
+	fmt.Println("mc: ", mc)
 
 
 }
