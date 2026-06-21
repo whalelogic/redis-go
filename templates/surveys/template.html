@@ -1,11 +1,12 @@
 {{template "base.html" .}}
 
-{{define "title"}}Favorite Language Survey{{end}}
+{{define "title"}} Name of Survey {{end}}
 
 {{define "content"}}
-    <h2>What is your favorite Programming Language?</h2>
+    <h1>Survey Title</h1>
+    <h2>Survey Question</h2>
     <form method="POST" action="/submit">
-        <input type="text" name="language" placeholder="e.g. Go, Python, Rust" required>
+        <input type="text" name="a name" placeholder="example answers" required>
         <input type="submit" value="Submit Vote">
     </form>
 
@@ -16,7 +17,5 @@
             <li>{{.Value}}: {{.Count}} vote(s)</li>
             {{end}}
         </ul>
-        <!-- TODO: Create a handler to end the survey and provide survey metrics -->
-        <!-- <button class="button">End Survey</button> -->
     </div>
 {{end}}
