@@ -10,8 +10,8 @@ This application allows users to create surveys, submit responses, and view resu
   
 ## Technologies Used
   
-- Golang: The main programming language used for the backend.
-- Redis: Used for storing survey data and responses.
+- **Golang**: The main programming language used for the backend.
+- **Redis**: Used for storing survey data and responses.
   
 ## To Run the Application
   
