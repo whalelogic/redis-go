@@ -1,4 +1,4 @@
-#### A Survey Application demo built with Golang and Redis.
+#### A Survey Application
 
 This application allows users to create surveys, submit responses, and view results. It uses Redis for data storage and is designed to be simple and easy to use.
 
